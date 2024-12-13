@@ -18,6 +18,7 @@ import watchlistRoutes from "./routes/watchlist.routes";
 import historyRoutes from "./routes/history.routes";
 import userRoutes from "./routes/user.routes";
 import movieRoutes from "./routes/movies.routes";
+import { verifyToken } from "./middlewares/authenticators/jwt";
 
 const app = express();
 
@@ -60,10 +61,10 @@ app.use(
 );
 
 app.use("/auth", authRoutes);
-app.use("/watchlist", watchlistRoutes);
-app.use("/history", historyRoutes);
-app.use("/user", userRoutes);
-app.use("/movies", movieRoutes);
+app.use("/watchlist", verifyToken, watchlistRoutes);
+app.use("/history", verifyToken, historyRoutes);
+app.use("/user", verifyToken, userRoutes);
+app.use("/movies", verifyToken, movieRoutes);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message });

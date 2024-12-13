@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const verifyToken = (
   req: Request,
@@ -7,9 +10,23 @@ export const verifyToken = (
   next: NextFunction
 ) => {
   try {
-  } catch (error) {
-    
-  }
+    const token = req.headers.authorization
+      ?.split(" ")[1]
+      .slice(1, -1);
+    if (token) {
+      const decoded = jwt.verify(
+        token,
+        process.env.JWTPRIVETE_SECRET
+      );
+      if (!decoded) {
+        throw new Error("Invalid or Expired");
+      }
+      req["user"] = decoded;
+      next();
+    } else {
+      throw new Error("No token provided");
+    }
+  } catch (error) {}
 };
 
 export const grantToken = (
@@ -31,7 +48,7 @@ export const grantToken = (
       throw new Error("Could not create authentication token");
     }
     res.header("Authorization", `Bearer ${token}`);
-    next()
+    next();
   } catch (error) {
     next(error);
   }

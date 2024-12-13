@@ -2,6 +2,9 @@ import User from "../models/user.model";
 import Preferences from "../models/preferences.model";
 import { getMovieModel } from "../models/dummymovie.model";
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const updateMoviePrefereces = async (
   userId: string,

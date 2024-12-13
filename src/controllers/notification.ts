@@ -1,5 +1,8 @@
 import { io } from "../app";
 import { Queue, Worker } from "bullmq";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const redisConnect = {
   host: process.env.REDIS_HOST,
