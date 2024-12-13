@@ -61,10 +61,10 @@ app.use(
 );
 
 app.use("/auth", authRoutes);
-app.use("/watchlist", verifyToken, watchlistRoutes);
-app.use("/history", verifyToken, historyRoutes);
-app.use("/user", verifyToken, userRoutes);
-app.use("/movies", verifyToken, movieRoutes);
+app.use("/watchlist", watchlistRoutes);
+app.use("/history", historyRoutes);
+app.use("/user", userRoutes);
+app.use("/movies", movieRoutes);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message });
