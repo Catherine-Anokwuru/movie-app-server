@@ -8,7 +8,7 @@ export const addMovie = async (
   next: NextFunction
 ) => {
   try {
-    const { tmdbId, title, description, genres, year } = req.body;
+    const { tmdbId, title, description, genres, year, poster_path } = req.body;
     const { userId } = req.params;
 
     // Find or create the user's watchlist
@@ -26,6 +26,7 @@ export const addMovie = async (
         description,
         genres,
         year,
+        poster_path
       });
     }
 
