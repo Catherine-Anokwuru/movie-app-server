@@ -12,9 +12,15 @@ export const getWatchlist = async (
     const watchlist = await Watchlist.findOne({
       userId: userId,
     });
-    const watchlistMovies = watchlist.movies.forEach(async (id) => {
-      return await Movie.findById(id);
-    });
+
+    const watchlistMovies = await Promise.all(
+      watchlist.movies.map(async (id) => {
+        console.log(id);
+
+        return await Movie.findById(id);
+      })
+    );
+
     res.status(200).json({ watchlistMovies });
   } catch (error) {
     next(error);
