@@ -7,6 +7,7 @@ const router = express.Router()
 router.get('/:userId', getUser)
 router.get('/:userId/current-streak', getUserStreak)
 router.get('/:userId/add-streak', addStreak)
+// router.get('/:userId/recommendation', recomm)
 
 
 export default router
