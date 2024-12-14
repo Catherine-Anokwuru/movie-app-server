@@ -4,6 +4,7 @@ interface IMovie {
   tmdbId: number;
   title: string;
   description: string;
+  poster_path: string;
   genres: string[];
   year: string;
   watchlist: {}
@@ -14,6 +15,7 @@ const MovieSchema = new mongoose.Schema<IMovie>(
   {
     tmdbId: { type: Number, required: true },
     title: { type: String, required: true },
+    poster_path: { type: String, required: true },
     description: { type: String },
     genres: { type: [String], required: true },
     year: { type: String },
